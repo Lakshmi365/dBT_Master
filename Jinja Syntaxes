@@ -1,0 +1,60 @@
+## Dictonaries ##
+
+{% set person = {
+    ‘name’: ‘me’,
+    ‘number’: 3
+} %}
+
+{{ person.name }}
+
+me
+
+{{ person[‘number’] }}
+
+## Lists ## 
+
+{% set self = [‘me’, ‘myself’] %}
+
+{{ self[0] }}
+
+
+## If Else ##
+
+{% set temperature = 80.0 %}
+
+On a day like this, I especially like
+
+{% if temperature > 70.0 %}
+
+a refreshing mango sorbet.
+
+{% else %}
+
+A decadent chocolate ice cream.
+
+{% endif %}
+
+
+## For Loop ##
+
+{% set flavors = [‘chocolate’, ‘vanilla’, ‘strawberry’] %}
+
+{% for flavor in flavors %}
+
+Today I want {{ flavor }} ice cream!
+
+{% endfor %}
+
+## Macros way of writing functions in Jinja's ##
+
+{% macro hoyquiero(flavor, dessert = ‘ice cream’) %}
+
+Today I want {{ flavor }} {{ dessert }}!
+
+{% endmacro %}
+
+{{ hoyquiero(flavor = ‘chocolate’) }}
+
+{{ hoyquiero(mango, sorbet) }}
+
+
