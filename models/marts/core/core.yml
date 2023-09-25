@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: contain various attributes related to customers.
+    columns: 
+      - name: customer_id
+        description: The primary key for dim_customers.
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_customer_orders
+    description: Legacy migration for fact customers
+    columns: 
+      - name: order_id
+        description: Primary key for fct_customers.
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_orders
+    description: fact orders join with the payments
+    columns: 
+      - name: order_id
+        description: Primary key for fct_orders.
+        tests:
+          - unique
+          - not_null
