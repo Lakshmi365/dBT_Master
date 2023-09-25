@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: int_orders
+    description: This is redifined intermediate that can be usable in downstream use case.
+    columns: 
+      - name: order_id
+        description: The primary key for int_orders.
+        tests:
+          - unique
+          - not_null
+
+  - name: int_orders__pivoted
+    description: useable macro file for payment_methods
+    columns: 
+      - name: order_id
+        description: Primary key for int_orders_pivoted.
+        tests:
+          - unique
+          - not_null
