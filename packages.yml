@@ -18,7 +18,6 @@ packages:
     # package used to builds a mart of tables and views describing the project it is installed in
   - git: "https://github.com/eon-collective/dbt_artifacts_eon.git"
     revision: 0.2.0
-    
   
 
 
