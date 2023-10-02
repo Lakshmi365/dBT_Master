@@ -38,6 +38,8 @@ models:
         materialized: view
       marts:
         +tags: piperider  
+  staging:
+      materialized: table
   dbt_project_evaluator:
     marts:
       tests:
