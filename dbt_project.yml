@@ -35,11 +35,9 @@ models:
   jaffle_shop:
       materialized: table
       staging:
-        materialized: view
+        materialized: table
       marts:
-        +tags: piperider  
-  staging:
-      materialized: table
+        +tags: piperider
   dbt_project_evaluator:
     marts:
       tests:
