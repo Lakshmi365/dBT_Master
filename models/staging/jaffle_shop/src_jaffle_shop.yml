@@ -27,11 +27,3 @@ sources:
         freshness:
           warn_after: {count: 12, period: hour}
           error_after: {count: 24, period: hour}
-
-models:
-  - name: staging
-    description: Staging table from orders.
-    database: dbt_analytics
-    schema: staging
-    tables:
-      - name: stg_orders
