@@ -5,7 +5,7 @@ packages:
 
     # package used to compare two models
   - package: dbt-labs/audit_helper
-    version: 0.8.0
+    version: 0.9.0
 
     # package used to logs information about source, seed, & model nodes to the command line
   - git: "https://github.com/eon-collective/dbt_readme_helper.git"
