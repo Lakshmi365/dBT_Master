@@ -1,27 +1,29 @@
+
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: "jaffle_shop"
-version: "1.0.0"
+name: 'jaffle_shop'
+version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: "default"
+profile: 'jaffle_shop'
 
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
 analysis-paths: ["analyses"]
-test-paths: ["core"]
+test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target" # directory which will store compiled SQL files
-clean-targets: # directories to be removed by `dbt clean`
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
+
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -31,9 +33,36 @@ clean-targets: # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   jaffle_shop:
-    +materialized: table
-    tests:
-      - unique
-      - not_null
-          
+      materialized: table
+      staging:
+        materialized: view
+      marts:
+        +tags: piperider  
+  dbt_project_evaluator:
+    marts:
+      tests:
+        # disable entire test coverage suite
+        +enabled: false
+      dag:
+        # disable single DAG model
+        fct_model_fanout:
+          +enabled: false
 
+on-run-end: 
+  - "{{ dbt_readme_logger.log_results_csv() }}"
+  - "{{ dbt_project_evaluator.print_dbt_project_evaluator_issues() }}"
+  # - "{{ dbt_artifacts.upload_results(results) }}"
+
+tests:
+  dbt_project_evaluator:
+    +severity: error
+    
+vars:
+  dbt_project_evaluator:
+    documentation_coverage_target: 70
+    exclude_packages: ["dbt_artifacts"]
+
+seeds:
+  dbt_project_evaluator:
+    dbt_project_evaluator_exceptions:
+      +enabled: false
