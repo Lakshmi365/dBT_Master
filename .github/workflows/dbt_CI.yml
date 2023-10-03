@@ -9,14 +9,21 @@ on:
     branches: [ "FeatureA" ]
   pull_request:
     branches: [ "builder1", "builder2" ]
-
+  schedule:
+    - cron: '0 14 * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 env:
-  DBT_PROFILES: ${{secrets.}}
-  SNOWFLAKE_ACCOUNT: ${{secrets.SNOWFLAKE_ACCOUNT}}
-  SNOWFLAKE_PASSWORD: ${{secrets.SNOWFLAKE_PASSWORD}}
+  DBT_PROJECT_NAME: DBT_Jaffle_Shop_LK
+  DTB_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+  DBT_USER : ${{ secrets.DBT_USER  }}
+  DBT_PASSWORD : ${{ secrets.DBT_PASSWORD  }}
+  DBT_ROLE : ${{ secrets.DBT_ROLE  }}
+  DBT_DATABASE : ${{ secrets.DBT_DATABASE  }}
+  DBT_SCHEMA : ${{ secrets.DBT_SCHEMA  }}
+  DBT_WAREHOUSE  : ${{ secrets.DBT_WAREHOUSE   }}
+  DBT_NUM_THREADS: 15
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,8 +40,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run dbt
         run: |
-          dbt --version
+          pip install dbt-snowflake
           dbt deps
+          dbt --version
+          dbt test
           dbt run
 
       # Runs a set of commands using the runners shell
