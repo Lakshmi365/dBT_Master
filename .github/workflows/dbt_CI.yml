@@ -43,14 +43,13 @@ jobs:
           pip install dbt-snowflake
           dbt deps
           dbt --version
-          dbt test --profiles-dir .dbt
-          dbt run --profiles-dir .dbt
+          dbt test --profiles-dir /home/runner/work/dBT_Master/dBT_Master/.dbt
+          dbt run --profiles-dir /home/runner/work/dBT_Master/dBT_Master/.dbt
 
       - name: DBT Debug
         run: |
-          ls -la .dbt
-          cat .dbt/profiles.yml
-          echo "Command: dbt run --profiles.dir .dbt"
+          cat /home/runner/work/dBT_Master/dBT_Master/.dbt/profiles.yml
+          echo "Command: dbt run --profiles.dir /home/runner/work/dBT_Master/dBT_Master/.dbt"
 
       # Runs a set of commands using the runners shell
       - name: Generate dbt docs
