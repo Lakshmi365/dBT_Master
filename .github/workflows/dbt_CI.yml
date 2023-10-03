@@ -43,13 +43,13 @@ jobs:
           pip install dbt-snowflake
           dbt deps
           dbt --version
-          dbt test --profiles-dir ${{github.workspace}}/.dbt
+          dbt test --profiles-dir ${{ github.workspace }}/.dbt
           dbt run
 
       - name: DBT Debug
         run: |
-          cat ${{github.workspace}}/.dbt/profiles.yml
-          echo "Profiles Dir: ${{github.workspace}}/.dbt
+          cat ${{ github.workspace }}/.dbt/profiles.yml
+          echo "Profiles Dir: ${{ github.workspace }}/.dbt"
 
       # Runs a set of commands using the runners shell
       - name: Generate dbt docs
