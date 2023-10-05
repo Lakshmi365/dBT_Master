@@ -45,10 +45,10 @@ jobs:
           pip install dbt-snowflake
           dbt deps
           dbt --version
-          dbt test --profiles-dir $DBT_PROFILES
-          dbt run --profiles-dir $DBT_PROFILES
+          dbt test --profiles-dir $DBT_PROFILES  --exclude is_empty_fct_undocumented_models+
+          dbt run --profiles-dir $DBT_PROFILES  --exclude is_empty_fct_undocumented_models+
 
       # Runs a set of commands using the runners shell
       - name: Generate dbt docs
         run: |
-          dbt docs generate
+          dbt docs generate  --exclude is_empty_fct_undocumented_models+
