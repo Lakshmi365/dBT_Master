@@ -1,0 +1,36 @@
+name: Lint and Test dbt Project
+
+on:
+  push:
+    branches:
+      - featureA
+      - featureB
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint_and_test_project:
+    name: Lint and Test dbt project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install SQLFluff and dbt
+        run: |
+          pip install dbt-snowflake sqlfluff sqlfluff-templater-dbt
+
+      - name: Lint project
+        run: |
+          sqlfluff --version
+          sqlfluff lint -i templating,parsing --dialect snowflake models
+
+      - name: Print success message
+        run: echo "Source code is capable on best methods"
