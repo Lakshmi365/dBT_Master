@@ -49,6 +49,6 @@ jobs:
           dbt run --profiles-dir $DBT_PROFILES  --exclude is_empty_fct_undocumented_models+
 
       # Runs a set of commands using the runners shell
-      - name: Generate dbt docs
-        run: |
-          dbt docs generate  --exclude is_empty_fct_undocumented_models+
+      #- name: Generate dbt docs
+      #  run: |
+      #    dbt docs generate  --exclude is_empty_fct_undocumented_models+
