@@ -1,0 +1,38 @@
+name: Run dbt Project Evaluator CI Check
+
+on:
+  push:
+    branches:
+      - featureA
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dbt_project_evaluator:
+    name: DBT Project Evaluator
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dbt CLI
+        run: |
+          pip install dbt
+
+      - name: Display profiles.yml
+        run: |
+          cat .dbt/profiles.yml
+
+      - name: Run dbt Project Evaluator
+        run: |
+          mkdir -p ~/.dbt
+          echo "${{ secrets.DBT_PROFILES }}" > ~/.dbt/profiles.yml
+          dbt deps
+          dbt build --select package:dbt_project_evaluator
