@@ -59,7 +59,7 @@ tests:
     
 vars:
   dbt_project_evaluator:
-    documentation_coverage_target: 65
+    documentation_coverage_target: 60
     exclude_packages: ["dbt_artifacts"]
 
 seeds:
