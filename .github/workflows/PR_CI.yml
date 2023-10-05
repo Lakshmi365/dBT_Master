@@ -1,0 +1,36 @@
+name: Custom PipeRider Compare
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  piperider-compare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install required Python packages
+        run: pip install snowflake-connector-python
+
+      - name: Run PipeRider Compare
+        env:
+          DBT_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+          DBT_ROLE: ${{ secrets.DBT_ROLE }}
+          DBT_DATABASE: ${{ secrets.DBT_DATABASE }}
+          DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+          DBT_WAREHOUSE: ${{ secrets.DBT_WAREHOUSE }}
+          DBT_NUM_THREADS: 15
+        run: |
+          docker run --rm -e SNOWFLAKE_ACCOUNT -e SNOWFLAKE_USER -e SNOWFLAKE_PASSWORD -e SNOWFLAKE_ROLE -e SNOWFLAKE_DATABASE -e SNOWFLAKE_SCHEMA -e SNOWFLAKE_WAREHOUSE -v $PWD:/workspace InfuseAI/piperider-compare-action:latest
