@@ -38,8 +38,7 @@ jobs:
           pip install dbt-core dbt-snowflake sqlfluff
           
       - name: Configure dbt profiles
-        env:
-          DBT_PROFILES: ${{ github.workspace }}/.dbt
+        run: echo "${{ secrets.DBT_PROFILES }}" > ${{ github.workspace }}/.dbt/profiles.yml
 
       - name: Get dbt Docker image
         run: docker pull ghcr.io/dbt-labs/dbt-snowflake:latest
