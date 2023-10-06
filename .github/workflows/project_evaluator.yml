@@ -42,9 +42,15 @@ jobs:
 
       - name: Get dbt Docker image
         run: docker pull ghcr.io/dbt-labs/dbt-snowflake:latest
-
+      
       - name: Use dbt Docker image to access dbt project
         run: |
           mkdir -p /home/runner/.dbt
+          echo '#!/bin/bash' > run_dbt.sh
+          echo 'cd /work' >> run_dbt.sh
+          echo 'ls -ltr /work' >> run_dbt.sh
+          echo 'dbt deps' >> run_dbt.sh
+          echo 'dbt build --select package:dbt_project_evaluator' >> run_dbt.sh
+          chmod +x run_dbt.sh
           docker run -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_master \
-            ghcr.io/dbt-labs/dbt-snowflake:latest /bin/bash -c "cd /work && ls -ltr /work && dbt deps && dbt build --select package:dbt_project_evaluator"
+            ghcr.io/dbt-labs/dbt-snowflake:latest /work/run_dbt.sh
