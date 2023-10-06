@@ -26,13 +26,13 @@ jobs:
           pip install dbt-core dbt-snowflake sqlfluff
           
       - name: Configure dbt profiles
-        run: echo "${{ secrets.DBT_PROFILES }}" > $HOME/.dbt/profiles.yml
+        run: echo "${{ secrets.DBT_PROFILES }}" > /home/runner/.dbt/profiles.yml
 
       - name: Get dbt Docker image
         run: docker pull ghcr.io/dbt-labs/dbt-snowflake:latest
 
       - name: Use dbt Docker image to access dbt project
         run: |
-          mkdir -p $HOME/.dbt
-          docker run -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_practices \
+          mkdir -p /home/runner/.dbt
+          docker run -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_master \
             ghcr.io/dbt-labs/dbt-snowflake:latest bash -c "cd /work && ls -ltr /work && dbt deps && dbt build --select package:dbt_project_evaluator"
