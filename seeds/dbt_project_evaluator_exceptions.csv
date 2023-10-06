@@ -14,13 +14,6 @@ fct_model_naming_conventions	resource_name	snapshots	        dbt_artifacts exclu
 fct_model_naming_conventions	resource_name	sources	            dbt_artifacts exclusion from the test-evaluation
 fct_model_naming_conventions	resource_name	test_executions	    dbt_artifacts exclusion from the test-evaluation
 fct_model_naming_conventions	resource_name	tests	            dbt_artifacts exclusion from the test-evaluation
-is_empty_fct_undocumented_models resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
-valid_documentation_coverage    resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
-fct_public_models_without_contract resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
-fct_exposures_dependent_on_private_models resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
-fct_undocumented_public_models resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
-fct_undocumented_source_tables resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
-fct_undocumented_sources resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
 fct_undocumented_models	        resource_name	exposures	        dbt_artifacts exclusion from the test-evaluation
 fct_undocumented_models	        resource_name	invocations	        dbt_artifacts exclusion from the test-evaluation
 fct_undocumented_models	        resource_name	model_executions	dbt_artifacts exclusion from the test-evaluation
