@@ -47,4 +47,4 @@ jobs:
         run: |
           mkdir -p /home/runner/.dbt
           docker run -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_master \
-            ghcr.io/dbt-labs/dbt-snowflake:latest bash -c "cd /work && ls -ltr /work && dbt deps && dbt build --select package:dbt_project_evaluator"
+            ghcr.io/dbt-labs/dbt-snowflake:latest /bin/bash -c "cd /work && ls -ltr /work && dbt deps && dbt build --select package:dbt_project_evaluator"
