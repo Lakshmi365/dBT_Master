@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dbt CLI
         run: |
-          pip install dbt
+          pip install dbt-snowflake
 
       - name: Display profiles.yml
         run: |
