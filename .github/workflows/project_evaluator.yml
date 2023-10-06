@@ -1,4 +1,4 @@
-name: Run dbt Project Evaluator CI Check
+name: Run dbt project evaluator CI check
 
 on:
   push:
@@ -9,30 +9,31 @@ on:
       - main
 
 jobs:
-  dbt_project_evaluator:
-    name: DBT Project Evaluator
+  compile:
+    name: Build and Compile dbt Project
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out the repository
+      - name: Check out the repo hosting the dbt project
         uses: actions/checkout@v2
-
+      
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
-      - name: Install dbt CLI
+      - name: Install dbt CLI and SQLFluff
         run: |
-          pip install dbt-snowflake
+          pip install dbt-core dbt-snowflake sqlfluff
+          
+      - name: Configure dbt profiles
+        run: |
+          echo "${{ secrets.DTB_PROFILES }}" > $HOME/.dbt/profiles.yml
+          cat $HOME/.dbt/profiles.yml
 
-      - name: Display profiles.yml
-        run: |
-          cat .dbt/profiles.yml
+      - name: Get dbt Docker image
+        run: docker pull ghcr.io/dbt-labs/dbt-snowflake:latest
 
-      - name: Run dbt Project Evaluator
+      - name: Use dbt Docker image to access dbt project
         run: |
-          mkdir -p ~/.dbt
-          echo "${{ secrets.DBT_PROFILES }}" > ~/.dbt/profiles.yml
-          dbt deps
-          dbt build --select package:dbt_project_evaluator
+          docker run -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_practices \
+            ghcr.io/dbt-labs/dbt-snowflake:latest bash -c "cd /work && ls -ltr /work && dbt deps && dbt build --select package:dbt_project_evaluator"
