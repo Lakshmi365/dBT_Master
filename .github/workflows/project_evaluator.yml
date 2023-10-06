@@ -23,11 +23,11 @@ jobs:
 
       - name: Install dbt CLI and SQLFluff
         run: |
-          pip install dbt-snowflake sqlfluff
+          pip install dbt-core dbt-snowflake sqlfluff
           
       - name: Configure dbt profiles
         run: |
-          echo "${{ secrets.DBT_PROFILES }}" > $HOME/.dbt/profiles.yml
+          echo "${{ secrets.DTB_PROFILES }}" > $HOME/.dbt/profiles.yml
           cat $HOME/.dbt/profiles.yml
 
       - name: Get dbt Docker image
