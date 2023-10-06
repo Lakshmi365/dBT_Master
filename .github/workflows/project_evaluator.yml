@@ -28,19 +28,12 @@ jobs:
       - name: Configure dbt profiles
         run: |
           echo "${{ secrets.DBT_PROFILES }}" > $HOME/.dbt/profiles.yml
-          
-      - name: Display dbt profiles
-        run: |
           cat $HOME/.dbt/profiles.yml
 
-      - name: Get and Use dbt docker image to access dbt project
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ghcr.io/dbt-labs/dbt-snowflake:latest
-          options: -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_master
-          shell: bash
+      - name: Get dbt Docker image
+        run: docker pull ghcr.io/dbt-labs/dbt-snowflake:latest
+
+      - name: Use dbt Docker image to access dbt project
         run: |
-          cd /work
-          ls -ltr /work
-          dbt deps
-          dbt build --select package:dbt_project_evaluator
+          docker run -v ${{ github.workspace }}:/work -e PROJECT_NAME=dbt_practices \
+            ghcr.io/dbt-labs/dbt-snowflake:latest bash -c "cd /work && ls -ltr /work && dbt deps && dbt build --select package:dbt_project_evaluator"
