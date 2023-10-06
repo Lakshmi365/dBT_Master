@@ -10,7 +10,7 @@ models:
           - unique
           - not_null
 
-  - name: int_orders__pivoted
+  - name: int_orders_pivoted
     description: useable macro file for payment_methods
     columns: 
       - name: order_id
