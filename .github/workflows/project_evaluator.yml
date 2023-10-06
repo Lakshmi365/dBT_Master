@@ -7,6 +7,18 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+
+env:
+  DBT_PROJECT_NAME: DBT_Jaffle_Shop_LK
+  DTB_ACCOUNT: ${{ secrets.DBT_ACCOUNT }}
+  DBT_USER : ${{ secrets.DBT_USER  }}
+  DBT_PASSWORD : ${{ secrets.DBT_PASSWORD  }}
+  DBT_ROLE : ${{ secrets.DBT_ROLE  }}
+  DBT_DATABASE : ${{ secrets.DBT_DATABASE  }}
+  DBT_SCHEMA : ${{ secrets.DBT_SCHEMA  }}
+  DBT_WAREHOUSE  : ${{ secrets.DBT_WAREHOUSE   }}
+  DBT_NUM_THREADS: 15
 
 jobs:
   compile:
@@ -26,7 +38,8 @@ jobs:
           pip install dbt-core dbt-snowflake sqlfluff
           
       - name: Configure dbt profiles
-        run: echo "${{ secrets.DBT_PROFILES }}" > /home/runner/.dbt/profiles.yml
+        env:
+          DBT_PROFILES: ${{ github.workspace }}/.dbt
 
       - name: Get dbt Docker image
         run: docker pull ghcr.io/dbt-labs/dbt-snowflake:latest
