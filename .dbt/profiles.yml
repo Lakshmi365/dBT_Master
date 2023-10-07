@@ -1,13 +1,13 @@
 dbt_project_test:
   outputs:
     dev:
-      account: xoa86772.us-east-1
-      database: DBT_ANALYTICS
-      password: '@#$%&09SFEsfe'
-      role: ANALYTICS_ENGINEER
-      schema: DBT_LKONDRU
+      account: ${{ secrets.DBT_ACCOUNT }}
+      database: ${{ secrets.DBT_DATABASE }}
+      password: ${{ secrets.DBT_PASSWORD }}
+      role: ${{ secrets.DBT_ROLE }}
+      schema: ${{ secrets.DBT_SCHEMA }}
       threads: 15
       type: snowflake
-      user: lakshmi.kondru
-      warehouse: DBT_WH
+      user: ${{ secrets.DBT_USER }}
+      warehouse: ${{ secrets.DBT_WAREHOUSE }}
   target: dev
