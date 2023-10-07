@@ -4,7 +4,7 @@ verbose = 0
 
 nocolor = False
 
-dialect = None
+dialect = snowflake
 
 templater = jinja
 
@@ -167,7 +167,7 @@ spacing_after = any
 # The definition part of a CTE should fit on one line where possible.
 # For users which regularly define column names in their CTEs they
 # may which to relax this config to just `single`.
-spacing_within = single:inline
+spacing_within = single
 
 # By setting a selection of clauses to "alone", we hint to the reflow
 # algorithm that in the case of a long single line statement, the
